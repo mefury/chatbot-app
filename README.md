@@ -40,13 +40,14 @@ The bot will ask your Hyperbolic API key, Get your hyperbolic API Key from here 
 
 5. **Run the Chatbot**
 
+* You can enter `screen -S chat` before running it to run the script on a minimizable screen in background.
+* To minimize screen: `CTRL+A+D`
+* To kill screen: `Ctrl+C` or command: `screen -XS chat quit`
+
 Execute the script to start the chatbot:
    ```bash
    python3 chatbot.py
    ```
-* You can enter `screen -S chat` before running it to run the script on a minimizable screen in background.
-* To minimize screen: `CTRL+A+D`
-* To kill screen: `Ctrl+C` or command: `screen -XS chat quit`
 
 
 
