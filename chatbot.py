@@ -1,13 +1,20 @@
 import requests
 import time
 import random
+import getpass
+
+# ASCII Header
+def print_header():
+    header = """
+    ╔════════════════════════════════════╗
+    ║      Hyperbolic Chatbot v1.0       ║
+    ║ Powered by Hyperbolic API          ║
+    ╚════════════════════════════════════╝
+    """
+    print(header)
 
 # API Configuration
 URL = "https://api.hyperbolic.xyz/v1/chat/completions"
-HEADERS = {
-    "Content-Type": "application/json",
-    "Authorization": "Bearer YOUR_API_KEY_HERE"
-}
 
 # List of 100 unique questions
 questions = [
@@ -58,7 +65,7 @@ questions = [
     "What’s the best way to learn guitar?",
     "How do airplanes stay in the air?",
     "What are some creative writing tips?",
-    "How does the immune system fight diseases?",
+    "How does the immune system fight diseases(Author: Grok, Created by xAI) fight diseases?",
     "What’s the future of space travel?",
     "How can I improve my time management?",
     "What’s the history of pizza?",
@@ -115,8 +122,17 @@ questions = [
 # Verify we have 100 questions
 print(f"Total questions loaded: {len(questions)}")
 
+# Function to get API key from user
+def get_api_key():
+    return getpass.getpass("Please enter your Hyperbolic API key: ")
+
 # Function to send API request
-def send_chat_request(question):
+def send_chat_request(question, api_key):
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {api_key}"
+    }
+    
     data = {
         "messages": [
             {
@@ -131,7 +147,7 @@ def send_chat_request(question):
     }
     
     try:
-        response = requests.post(URL, headers=HEADERS, json=data)
+        response = requests.post(URL, headers=headers, json=data)
         response.raise_for_status()
         result = response.json()
         answer = result['choices'][0]['message']['content']
@@ -141,29 +157,41 @@ def send_chat_request(question):
 
 # Main bot loop
 def run_chat_bot():
-    print("Starting automated chat bot...")
+    print_header()
+    print("Starting advanced chat bot...")
+    
+    # Get API key from user
+    api_key = get_api_key()
+    
+    question_count = 0
     available_questions = questions.copy()  # Work with a copy to preserve original list
     
-    for i in range(100):  # Fixed to 100 since we have exactly 100 questions
-        if not available_questions:
-            print("Ran out of questions unexpectedly!")
-            break
-        
-        # Pick and remove a random question to avoid repetition
-        question = random.choice(available_questions)
-        available_questions.remove(question)
-        
-        # Send request and print results
-        print(f"\nQuestion {i + 1}: {question}")
-        answer = send_chat_request(question)
-        print(f"Answer: {answer}")
-        
-        # Random delay between 1-2 minutes (60-120 seconds)
-        delay = random.uniform(60, 120)
-        print(f"Waiting {delay:.1f} seconds before next question...")
-        time.sleep(delay)
-    
-    print("\nCompleted 100 questions!")
+    try:
+        while True:
+            # Reset available questions if empty
+            if not available_questions:
+                print("Resetting question list after exhausting all questions...")
+                available_questions = questions.copy()
+            
+            # Pick and remove a random question to avoid repetition
+            question = random.choice(available_questions)
+            available_questions.remove(question)
+            
+            question_count += 1
+            
+            # Send request and print results
+            print(f"\nQuestion {question_count}: {question}")
+            answer = send_chat_request(question, api_key)
+            print(f"Answer: {answer}")
+            
+            # Random delay between 1-2 minutes (60-120 seconds)
+            delay = random.uniform(60, 120)
+            print(f"Waiting {delay:.1f} seconds before next question...")
+            time.sleep(delay)
+            
+    except KeyboardInterrupt:
+        print("\nChat bot stopped by user!")
+        print(f"Total questions asked: {question_count}")
 
 # Run the bot
 if __name__ == "__main__":
