@@ -25,7 +25,7 @@ This repository contains a simple automated chatbot built using the [Hyperbolic 
    ```
 2. **Clone the Repository**
    ```bash
-   git clone https://github.com/0xmoei/chatbot-app.git
+   git clone https://github.com/mefury/chatbot-app.git
    cd chatbot-app
    ```
 3. **Install Dependencies**
@@ -34,12 +34,10 @@ This repository contains a simple automated chatbot built using the [Hyperbolic 
    source venv/bin/activate
    pip install requests
    ```
-4. **Configure the API Key**
+4. **Get your API Key**
 
-Replace the `YOUR_API_KEY_HERE` in `chatbot.py` with your own [Hyperbolic API Key](https://app.hyperbolic.xyz/settings):
-   ```bash
-nano chatbot.py
-   ```
+The bot will ask your Hyperbolic API key, Get your hyperbolic API Key from here [Hyperbolic API Key](https://app.hyperbolic.xyz/settings):
+
 5. **Run the Chatbot**
 
 Execute the script to start the chatbot:
@@ -50,24 +48,7 @@ Execute the script to start the chatbot:
 * To minimize screen: `CTRL+A+D`
 * To kill screen: `Ctrl+C` or command: `screen -XS chat quit`
 
-## Usage
-Once running, the chatbot will:
-* Print each of the 100 questions one by one.
-* Fetch and display answers from the Hyperbolic Labs API.
-* Pause for a random interval (60-120 seconds) between questions.
-* Stop after completing all 100 questions.
 
-Example output:
-```
-Question 1: What’s the best way to learn programming?
-Answer: The best way to learn programming is a mix of structured learning and hands-on practice...
-Waiting 87.3 seconds before next question...
-```
-
-## Notes
-* The API key in the code is a placeholder. You’ll need to sign up at [Hyperbolic Labs](https://app.hyperbolic.xyz/) to get your own.
-* Be mindful of API usage limits and costs depending on your Hyperbolic Labs plan.
-* Feel free to modify the `questions` list in `chatbot.py` to suit your interests!
 
 
 
